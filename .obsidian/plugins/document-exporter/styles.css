@@ -1,0 +1,148 @@
+.export-modal-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.75em;
+	gap: 1em;
+}
+
+.export-modal-row label {
+	flex-shrink: 0;
+	width: 8em;
+	font-weight: 500;
+}
+
+.export-modal-row select,
+.export-modal-row input {
+	flex: 1;
+	min-width: 0;
+}
+
+.export-modal-source-fields {
+	margin-left: 9em;
+	margin-bottom: 0.75em;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.export-modal-input-group {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1;
+	min-width: 0;
+	gap: 0.5em;
+}
+
+.export-modal-input-group input {
+	width: 100%;
+}
+
+.export-modal-input-group .export-modal-browse-btn {
+	margin-left: auto;
+}
+
+.export-modal-browse-btn {
+	flex-shrink: 0;
+	white-space: nowrap;
+}
+
+.export-modal-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.5em;
+	margin-top: 1.5em;
+}
+
+.file-picker-list {
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+.file-picker-done-btn {
+	margin-top: 8px;
+}
+
+/* Progress Notice */
+
+.notice.de-progress-notice {
+	padding: 12px 16px;
+}
+
+.de-progress-content {
+	width: 280px;
+	overflow: hidden;
+}
+
+.de-progress-title {
+	font-weight: 600;
+	margin-bottom: 8px;
+	font-size: 13px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.de-progress-bar {
+	position: relative;
+	height: 6px;
+	background-color: var(--background-modifier-border);
+	border-radius: 3px;
+	overflow: hidden;
+	margin-bottom: 6px;
+}
+
+.de-progress-fill {
+	height: 100%;
+	background-color: var(--interactive-accent);
+	border-radius: 3px;
+	width: 0%;
+	transition: width 0.15s ease;
+}
+
+.de-progress-pct {
+	position: absolute;
+	right: 0;
+	top: -1px;
+	font-size: 10px;
+	color: var(--text-muted);
+	line-height: 1;
+	display: none;
+}
+
+.de-progress-phase {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 12px;
+	color: var(--text-muted);
+}
+
+.de-progress-phase span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex: 1;
+	min-width: 0;
+	margin-right: 8px;
+}
+
+.de-progress-cancel {
+	flex-shrink: 0;
+	font-size: 11px;
+	padding: 2px 8px;
+	border-radius: 3px;
+	cursor: pointer;
+	border: 1px solid var(--background-modifier-border);
+	background: var(--background-secondary);
+	color: var(--text-normal);
+	line-height: 1;
+}
+
+.de-progress-cancel:hover {
+	background: var(--background-modifier-hover);
+}
+
+.de-progress-cancel:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

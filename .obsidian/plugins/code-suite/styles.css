@@ -1,0 +1,1225 @@
+/* ============================================
+   CodeSuite Styles
+   Header bar, live I/O, Shiki CM6 tokens,
+   copy-error, clean labels
+   ============================================ */
+
+/* ─── Wrapper ─────────────────────────────────── */
+.ocode-wrapper {
+  position: relative;
+  margin: 0.8em 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: var(--ocode-bg, #1d2021);
+  border: 1px solid var(--ocode-border, #3c3836);
+  font-family: var(--font-monospace), "Fira Code", "JetBrains Mono", "Cascadia Code", monospace;
+}
+
+/* ─── Header bar ──────────────────────────────── */
+.ocode-header {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  background-color: var(--ocode-header-bg, #282828);
+  border-bottom: 1px solid var(--ocode-border, #3c3836);
+  min-height: 28px;
+  gap: 8px;
+  position: relative; /* anchor for absolutely-positioned collapse arrow */
+}
+
+/* ─── Language label ──────────────────────────── */
+.ocode-label {
+  font-size: 11px;
+  font-family: inherit;
+  color: var(--ocode-muted, #928374);
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.ocode-spacer {
+  flex: 1;
+}
+
+/* ─── Button group ────────────────────────────── */
+.ocode-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ─── Pill button (icon + text) ───────────────── */
+.ocode-wrapper .ocode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border: 1px solid var(--ocode-border, #3c3836);
+  border-radius: 4px;
+  background-color: var(--ocode-bg, #1d2021);
+  color: var(--ocode-fg, #ebdbb2);
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  user-select: none;
+  white-space: nowrap;
+  line-height: 1.4;
+  box-shadow: none;
+}
+
+.ocode-wrapper .ocode-pill:hover {
+  background-color: var(--ocode-border, #3c3836);
+  color: var(--ocode-fg, #ebdbb2);
+  border-color: var(--ocode-line-num, #504945);
+}
+
+.ocode-pill-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ocode-pill-text {
+  font-size: 11px;
+}
+
+/* Run pill — uses theme foreground so it matches any CodeSuite theme */
+.ocode-wrapper .ocode-run-pill {
+  border-color: var(--ocode-border, #3c3836);
+}
+
+.ocode-wrapper .ocode-run-pill:hover {
+  background-color: var(--ocode-border, #3c3836);
+  color: var(--ocode-fg, #ebdbb2);
+  border-color: var(--ocode-line-num, #504945);
+}
+
+/* Cancel/Stop pill — semantic red blended toward fg so it reads on any bg */
+.ocode-wrapper .ocode-pill.ocode-cancel-pill {
+  color: color-mix(in srgb, #ff4444 80%, var(--ocode-fg, #ebdbb2));
+  border-color: color-mix(in srgb, #ff4444 30%, transparent);
+}
+
+.ocode-wrapper .ocode-pill.ocode-cancel-pill:hover {
+  background-color: color-mix(in srgb, #ff4444 12%, transparent);
+  color: color-mix(in srgb, #ff4444 80%, var(--ocode-fg, #ebdbb2));
+  border-color: color-mix(in srgb, #ff4444 50%, transparent);
+}
+
+/* Clear pill — icon only, smaller */
+.ocode-clear-pill {
+  padding: 2px 6px;
+}
+
+/* ─── Code area ───────────────────────────────── */
+.ocode-wrapper pre.shiki {
+  margin: 0;
+  padding: 12px 16px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  overflow-x: auto;
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.6;
+  tab-size: 4;
+}
+
+.ocode-wrapper pre.shiki code {
+  background: none;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  display: block;
+  white-space: pre;
+}
+
+/* ─── Lines ───────────────────────────────────── */
+.ocode-wrapper .line {
+  display: inline-block;
+  width: 100%;
+  min-height: 1.6em;
+  padding: 0 4px 0 0;
+}
+
+.ocode-wrapper .line:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* ─── Line numbers ────────────────────────────── */
+.ocode-line-num {
+  display: inline-block;
+  width: 3em;
+  margin-right: 16px;
+  text-align: right;
+  color: var(--ocode-line-num, #504945);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.ocode-wrapper .line:hover .ocode-line-num {
+  color: var(--ocode-muted, #928374);
+}
+
+/* ─── Soft wrap (reading view) ────────────────── */
+/* When enabled, long lines wrap instead of producing a horizontal scrollbar.
+   Continuation rows hang-indent past the line-number gutter so wrapped text
+   stays aligned with the code, not the numbers. */
+body.ocode-wrap-code .ocode-wrapper pre.shiki {
+  overflow-x: hidden;
+}
+
+body.ocode-wrap-code .ocode-wrapper pre.shiki code {
+  white-space: pre-wrap;
+}
+
+body.ocode-wrap-code .ocode-wrapper .line {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Hang-indent only when a line-number gutter is present, so wrapped rows align
+   with the code rather than sliding under the numbers. The gutter is reserved
+   with padding-left and the number is pulled into it via absolute positioning,
+   so every visual row (first and wrapped) starts at the code column. This
+   avoids `:has()` (broad style invalidation) and text-indent (only partially
+   supported in older Obsidian). The `ocode-has-lnum` marker class is added in
+   the renderer when line numbers are present. */
+body.ocode-wrap-code .ocode-wrapper.ocode-has-lnum .line {
+  position: relative;
+  padding-left: calc(3em + 16px);
+}
+
+body.ocode-wrap-code .ocode-wrapper.ocode-has-lnum .line .ocode-line-num {
+  position: absolute;
+  left: 0;
+  margin-right: 0;
+}
+
+/* ─── Output panel ────────────────────────────── */
+.ocode-output {
+  border-top: 1px solid var(--ocode-border, #3c3836);
+  background-color: var(--ocode-output-bg, #1a1a1a);
+}
+
+.ocode-output-header {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  background-color: var(--ocode-header-bg, #282828);
+  border-bottom: 1px solid var(--ocode-border, #3c3836);
+  gap: 8px;
+}
+
+/* Output label — matches language label style */
+.ocode-output-label {
+  flex: 1;
+  font-size: 11px;
+  color: var(--ocode-muted, #928374);
+  letter-spacing: 0.5px;
+  user-select: none;
+}
+
+/* Output content — grows to fit all text and figures */
+.ocode-output .ocode-output-content {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ocode-fg, #ebdbb2);
+}
+
+/* Hide empty output content area */
+.ocode-output .ocode-output-content:empty {
+  padding: 0;
+}
+
+/* Output-less run: panel is just the header, so drop its divider line */
+.ocode-output-headeronly .ocode-output-header {
+  border-bottom: none;
+}
+
+/* Run All header button while a pass is active (click again to cancel) */
+.view-action.ocode-run-all-active {
+  color: var(--text-error, #e06c75);
+}
+
+/* Text spans (stdout / stderr / stdin-echo) are inline; padding lives here */
+.ocode-output .ocode-output-content > .ocode-stdout,
+.ocode-output .ocode-output-content > .ocode-stderr,
+.ocode-output .ocode-output-content > .ocode-stdin-echo,
+.ocode-output .ocode-output-content > .ocode-no-output {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 0;
+}
+
+/* First text child gets top padding; last gets bottom padding */
+.ocode-output .ocode-output-content > :first-child:not(.ocode-output-item) { padding-top: 10px; }
+.ocode-output .ocode-output-content > :last-child:not(.ocode-output-item)  { padding-bottom: 10px; }
+.ocode-output .ocode-output-content > :not(.ocode-output-item) { padding-left: 16px; padding-right: 16px; }
+.ocode-output .ocode-output-content > .ocode-output-item { margin: 8px 0; }
+
+.ocode-stdout { color: var(--ocode-fg, #ebdbb2); }
+/* Stderr is orange by default — many programs (brew, npm, etc.) write
+   informational/progress text to stderr even on success. It only turns red
+   when the process actually exits with a non-zero code. */
+.ocode-stderr { color: #fe8019; }
+/* Failure is signalled on the header label, not by recolouring stderr — stderr
+   can mix intentional messages with the actual error and we can't tell them
+   apart, so we never paint it red (see #29). */
+.ocode-output-label.ocode-output-failed { color: #fb4934; }
+.ocode-no-output { color: var(--ocode-line-num, #504945); font-style: italic; }
+
+/* ─── Baked outputs ───────────────────────────────────────────────
+   Output serialized into the note by the opt-in "Bake outputs" feature.
+   Renders as a normal output panel, distinguished by small header badges:
+   "baked" marks it as saved-to-note, "stale" warns the code above changed. */
+.ocode-baked-badge,
+.ocode-baked-stale {
+  flex: 0 0 auto;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 4px;
+  user-select: none;
+}
+.ocode-baked-badge {
+  color: var(--ocode-muted, #928374);
+  border: 1px solid var(--ocode-border, #3c3836);
+}
+.ocode-baked-stale {
+  color: #1a1a1a;
+  background-color: #fabd2f;
+  font-weight: 600;
+}
+
+.ocode-stdin-echo {
+  color: #83a598;
+  font-style: italic;
+}
+
+/* ─── Copy Error pill (output header) ─────────── */
+/* stderr copy pill — tinted to match the orange stderr text it copies. */
+.ocode-wrapper .ocode-copy-stderr-pill {
+  color: #fe8019;
+  border-color: rgba(254, 128, 25, 0.3);
+  font-size: 10px;
+  padding: 1px 8px;
+}
+
+.ocode-wrapper .ocode-copy-stderr-pill:hover {
+  background-color: rgba(254, 128, 25, 0.12);
+  color: #fe8019;
+  border-color: rgba(254, 128, 25, 0.5);
+}
+
+/* ─── Image & widget output ───────────────────── */
+.ocode-output-images {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.ocode-output-widgets {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Wraps a single image/widget so its toolbar can float in the corner. */
+.ocode-output-item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.ocode-output-img {
+  max-width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 4px;
+  cursor: zoom-in;
+}
+
+.ocode-output-widget {
+  width: 100%;
+  height: 520px;
+  border: 1px solid var(--ocode-border, #3c3836);
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* Per-item toolbar — hidden until the item is hovered. */
+.ocode-output-toolbar {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  z-index: 1;
+}
+
+.ocode-output-item:hover .ocode-output-toolbar {
+  opacity: 1;
+}
+
+.ocode-output-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid var(--ocode-border, #3c3836);
+  background: var(--ocode-header-bg, #282828);
+  color: var(--ocode-fg, #ebdbb2);
+  cursor: pointer;
+}
+
+.ocode-output-tool:hover {
+  background: var(--ocode-bg, #1d2021);
+}
+
+/* ─── Full-screen output modal ────────────────── */
+.ocode-fullscreen-modal {
+  width: 92vw;
+  height: 90vh;
+  max-width: 92vw;
+}
+
+.ocode-fullscreen-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.ocode-fullscreen-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.ocode-fullscreen-widget {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #fff;
+}
+
+/* ─── Stdin input bar ─────────────────────────── */
+.ocode-input-bar {
+  display: none;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 6px;
+  border-top: 1px solid var(--ocode-border, #3c3836);
+  background-color: var(--ocode-header-bg, #282828);
+}
+
+.ocode-input-bar.ocode-input-bar-visible {
+  display: flex;
+}
+
+.ocode-input-field {
+  flex: 1;
+  background: var(--ocode-bg, #1d2021);
+  border: 1px solid var(--ocode-border, #3c3836);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--ocode-fg, #ebdbb2);
+  outline: none;
+}
+
+.ocode-input-field:focus {
+  border-color: #83a598;
+}
+
+.ocode-input-field::placeholder {
+  color: var(--ocode-line-num, #504945);
+}
+
+.ocode-send-pill {
+  padding: 4px 8px;
+}
+
+/* ─── HTML live preview ───────────────────────── */
+/* The rendered preview pane lives beside the source body; the toggle (and the
+   .ocode-show-preview class) swaps which one is visible. Hidden by default. */
+.ocode-html-render {
+  display: none;
+  border-top: 1px solid var(--ocode-border, #3c3836);
+  background-color: var(--ocode-bg, #1a1a1a);
+}
+
+/* Sandboxed iframe that renders the HTML; height is set from its resize message. */
+.ocode-html-frame {
+  display: block;
+  width: 100%;
+  height: 60px;
+  border: 0;
+  background: transparent;
+}
+
+.ocode-wrapper.ocode-show-preview pre.shiki { display: none; }
+.ocode-wrapper.ocode-show-preview .ocode-html-render { display: block; }
+
+/* A collapsed block hides the preview too (source hides via .ocode-hidden). */
+.ocode-wrapper.ocode-collapsed .ocode-html-render { display: none; }
+
+/* Highlight the toggle while the preview is showing. */
+.ocode-wrapper.ocode-show-preview .ocode-html-toggle {
+  color: var(--ocode-fg, #ebdbb2);
+  border-color: var(--ocode-fg, #ebdbb2);
+}
+
+/* List-nested fenced blocks keep their visual indent in Live Preview (#27).
+   --ocode-lp-indent is set per block from the fence's indent width. */
+.ocode-wrapper.ocode-lp-indented {
+  margin-inline-start: var(--ocode-lp-indent, 0);
+}
+
+/* Block whose process is currently executing — progress cue for Run All and
+   queued manual runs (#25). */
+.ocode-wrapper.ocode-running {
+  box-shadow: 0 0 0 2px var(--interactive-accent);
+}
+
+/* ─── Settings tabs ───────────────────────────── */
+/* Custom horizontal tab bar for the settings tab. Own classes themed with
+   Obsidian CSS variables so it matches every theme (light/dark/community). */
+.ocode-settings-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 0 0 1.5em;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+.ocode-settings-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  margin-bottom: -1px; /* overlap the container's bottom border */
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  border-radius: var(--radius-s) var(--radius-s) 0 0;
+}
+.ocode-settings-tab:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+.ocode-settings-tab.is-active {
+  color: var(--text-normal);
+  font-weight: var(--font-semibold);
+  border-bottom-color: var(--interactive-accent);
+}
+.ocode-settings-tab:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: -2px;
+  border-radius: var(--radius-s);
+}
+.ocode-settings-tab-icon {
+  display: inline-flex;
+  align-items: center;
+}
+.ocode-settings-tab-icon svg {
+  width: var(--icon-s);
+  height: var(--icon-s);
+}
+
+/* ─── Utility classes ─────────────────────────── */
+.ocode-hidden { display: none; }
+.ocode-hidden-input { display: none; }
+.ocode-exec-desc { margin-bottom: 12px; }
+
+/* ─── Inline $varname substitution ───────────── */
+/* Dim + italic until a value is known */
+code.ocode-var-ref {
+  opacity: 0.5;
+  font-style: italic;
+}
+/* Normal once a value is resolved */
+code.ocode-var-ref[data-resolved] {
+  opacity: 1;
+  font-style: normal;
+}
+
+/* ─── vars block ──────────────────────────────── */
+/* ─── vars block ──────────────────────────────── */
+/* Rendered with the same ocode-wrapper/ocode-header structure as a regular
+   code block. The only extra rule makes the header "vars" label subtly
+   distinct from an executable language label. */
+.ocode-vars-wrapper .ocode-label {
+  font-style: italic;
+}
+
+/* CodeSuite frontmatter vars panel — an optional readable rendering of the
+   nested maps Obsidian's Properties widget can't display (`code_vars:` /
+   `template_context:`), which otherwise trigger an "unsupported property type"
+   warning (#34). The broken property rows are hidden by the static rule below
+   (pure CSS, so it survives every re-render with no JS timing); when the
+   `showFrontmatterVarsPanel` setting is on, the panel sits just below the
+   Properties widget and renders the values. */
+.metadata-container .metadata-property[data-property-key="code_vars"],
+.metadata-container .metadata-property[data-property-key="template_context"] {
+  display: none;
+}
+.ocode-frontmatter-vars {
+  margin: 0 0 16px;
+  border: 1px solid var(--ocode-border, var(--background-modifier-border));
+  border-radius: 8px;
+  background-color: var(--ocode-bg, var(--background-secondary));
+  overflow: hidden;
+  font-size: 13px;
+}
+.ocode-fm-vars-header {
+  padding: 6px 12px;
+  background-color: var(--ocode-header-bg, var(--background-secondary-alt));
+  border-bottom: 1px solid var(--ocode-border, var(--background-modifier-border));
+}
+.ocode-fm-vars-title {
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ocode-muted, var(--text-muted));
+}
+.ocode-fm-vars-group {
+  padding: 8px 12px;
+}
+.ocode-fm-vars-group + .ocode-fm-vars-group {
+  border-top: 1px solid var(--ocode-border, var(--background-modifier-border));
+}
+.ocode-fm-vars-group-title {
+  margin-bottom: 4px;
+  font-family: var(--font-monospace);
+  font-size: 11px;
+  color: var(--ocode-muted, var(--text-muted));
+}
+.ocode-fm-var-row {
+  display: flex;
+  gap: 12px;
+  padding: 2px 0;
+  align-items: baseline;
+}
+.ocode-fm-var-key {
+  flex: 0 0 auto;
+  min-width: 120px;
+  font-family: var(--font-monospace);
+  color: var(--ocode-fg, var(--text-normal));
+}
+.ocode-fm-var-val {
+  flex: 1 1 auto;
+  font-family: var(--font-monospace);
+  color: var(--text-accent);
+  word-break: break-word;
+}
+
+/* Experimental data-table badge — a small caption above a table that has been
+   registered as a code variable source. */
+.ocode-table-badge {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 1px 8px;
+  font-family: var(--font-monospace);
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  background-color: var(--background-modifier-hover);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+}
+
+
+/* Clear-session pill */
+.ocode-clear-session-pill {
+  font-size: 10px;
+  padding: 1px 7px;
+  color: #fabd2f;
+  border-color: rgba(250, 189, 47, 0.3);
+}
+.ocode-clear-session-pill:hover {
+  background-color: rgba(250, 189, 47, 0.12);
+  color: #fabd2f;
+  border-color: rgba(250, 189, 47, 0.5);
+}
+
+/* ─── Hide Obsidian default copy button ───────── */
+.ocode-wrapper .copy-code-button {
+  display: none;
+}
+
+/* ─── Wide code blocks ────────────────────────── */
+body.ocode-wide-blocks .ocode-wrapper {
+  margin-left: -3%;
+  margin-right: -3%;
+  width: calc(100% + 6%);
+}
+
+/* ─── Embedded file styling ───────────────────── */
+.ocode-embed-container {
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.ocode-embed-container .ocode-wrapper {
+  text-align: left;
+}
+
+.ocode-embed-container .ocode-wrapper pre.shiki,
+.ocode-embed-container .ocode-wrapper pre.shiki code {
+  text-align: left;
+}
+
+.ocode-embedded .ocode-label {
+  color: #d3869b;
+  font-weight: 500;
+}
+
+.ocode-label-link {
+  cursor: pointer;
+}
+
+.ocode-label-link:hover {
+  text-decoration: underline;
+}
+
+/* ─── Collapsible code blocks ─────────────────── */
+
+.ocode-collapse-hint {
+  font-size: 11px;
+  color: var(--ocode-line-num, #504945);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.ocode-collapse-toggle {
+  cursor: pointer;
+  user-select: none;
+}
+
+.ocode-collapse-toggle:hover {
+  background-color: var(--ocode-border, #3c3836);
+}
+
+.ocode-collapse-toggle:active {
+  background-color: var(--ocode-line-num, #504945);
+}
+
+/* ─── Scrollbar — code area ───────────────────── */
+.ocode-wrapper pre.shiki::-webkit-scrollbar { height: 6px; }
+.ocode-wrapper pre.shiki::-webkit-scrollbar-track { background: transparent; }
+.ocode-wrapper pre.shiki::-webkit-scrollbar-thumb { background: var(--ocode-border, #3c3836); border-radius: 3px; }
+.ocode-wrapper pre.shiki::-webkit-scrollbar-thumb:hover { background: var(--ocode-line-num, #504945); }
+
+/* ─── Scrollbar — output area ─────────────────── */
+.ocode-output-content::-webkit-scrollbar { width: 6px; }
+.ocode-output-content::-webkit-scrollbar-track { background: transparent; }
+.ocode-output-content::-webkit-scrollbar-thumb { background: var(--ocode-border, #3c3836); border-radius: 3px; }
+
+/* ─── Selection ───────────────────────────────── */
+.ocode-wrapper pre.shiki code::selection,
+.ocode-wrapper pre.shiki code *::selection {
+  background-color: rgba(168, 153, 132, 0.3);
+}
+
+/* ============================================
+   Editor (Source/Live Preview) — Gruvbox styling
+   Uses Obsidian's native cm-* token classes
+   ============================================ */
+
+/* ─── Code block container ────────────────────── */
+.cm-s-obsidian .cm-line.HyperMD-codeblock {
+  background-color: var(--ocode-bg, #1d2021);
+  font-family: var(--font-monospace), "Fira Code", "JetBrains Mono", "Cascadia Code", monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+  border-left: 1px solid var(--ocode-border, #3c3836);
+  border-right: 1px solid var(--ocode-border, #3c3836);
+}
+
+/* First line (opening ```) */
+/* No background-color here — delimiter text inherits Obsidian's theme color,
+   so setting a code-theme background would make it invisible when themes differ. */
+.cm-s-obsidian .cm-line.HyperMD-codeblock-begin {
+  border-top: 1px solid var(--ocode-border, #3c3836);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding-top: 4px;
+}
+
+/* Last line (closing ```) */
+.cm-s-obsidian .cm-line.HyperMD-codeblock-end {
+  border-bottom: 1px solid var(--ocode-border, #3c3836);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding-bottom: 4px;
+}
+
+/* Side borders — merged into .cm-line.HyperMD-codeblock above */
+
+/* Backtick marks (``` ) — same color for both open and close */
+.cm-s-obsidian .cm-formatting-code-block {
+  color: var(--ocode-muted, #928374);
+}
+
+/* Language info text (```python) */
+.cm-s-obsidian .HyperMD-codeblock-begin .cm-hmd-codeblock {
+  color: var(--ocode-muted, #928374);
+}
+
+/* ─── Edit-state line-number gutter (Live Preview reveal) ─────
+   When the cursor enters a block its chrome widget is dropped and Obsidian
+   shows the raw HyperMD lines. Without numbers there, clicking in flashes a
+   gutter-less "native" block before our chrome returns. Mirror the gutter here
+   (CSS counters) so the revealed source lines up with the chrome it replaced.
+   Gated by `body.ocode-lp-lnum`, which tracks the Line numbers setting.
+   Fence lines (begin/end) are not numbered — they have no number in chrome. */
+body.ocode-lp-lnum .cm-s-obsidian .cm-line.HyperMD-codeblock-begin {
+  counter-reset: ocode-lp-ln;
+}
+
+body.ocode-lp-lnum
+  .cm-s-obsidian
+  .cm-line.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end) {
+  counter-increment: ocode-lp-ln;
+  position: relative;
+  padding-left: calc(3em + 28px);
+}
+
+body.ocode-lp-lnum
+  .cm-s-obsidian
+  .cm-line.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::before {
+  content: counter(ocode-lp-ln);
+  position: absolute;
+  left: 4px;
+  width: 3em;
+  text-align: right;
+  color: var(--ocode-line-num, #504945);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  /* Number is chrome, not source — never let a drag select it. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Obsidian's native Live Preview language widget — a span Obsidian injects at the
+   top-right of every code block's opening fence (class `code-block-flair`, doubles
+   as a copy button). When the cursor enters a block our chrome widget is dropped
+   and this native flair paints in the corner — the "Python top-right" flash. We
+   render our own header/Copy, so suppress it everywhere in the editor. */
+.cm-s-obsidian .code-block-flair.code-block-flair {
+  display: none;
+}
+
+/* Inline code in editor */
+.cm-s-obsidian .cm-inline-code {
+  background-color: var(--ocode-bg, #1d2021);
+  color: #d3869b;
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 0.92em;
+}
+
+/* ─── Gruvbox token colors (cm-* classes from Obsidian) ── */
+/* NOTE: These serve as fallbacks. The Shiki ViewPlugin applies
+   inline styles for precise highlighting; these rules ensure
+   code blocks still look decent if the ViewPlugin hasn't run. */
+
+/* Keywords: import, def, class, if, for, while, return, etc. */
+.cm-s-obsidian .HyperMD-codeblock .cm-keyword {
+  color: #fb4934;
+}
+
+/* Strings */
+.cm-s-obsidian .HyperMD-codeblock .cm-string {
+  color: #b8bb26;
+}
+.cm-s-obsidian .HyperMD-codeblock .cm-string-2 {
+  color: #b8bb26;
+}
+
+/* Numbers */
+.cm-s-obsidian .HyperMD-codeblock .cm-number {
+  color: #d3869b;
+}
+
+/* Comments */
+.cm-s-obsidian .HyperMD-codeblock .cm-comment {
+  color: #928374;
+  font-style: italic;
+}
+
+/* Variables / identifiers */
+.cm-s-obsidian .HyperMD-codeblock .cm-variable {
+  color: #83a598;
+}
+.cm-s-obsidian .HyperMD-codeblock .cm-variable-2 {
+  color: #83a598;
+}
+.cm-s-obsidian .HyperMD-codeblock .cm-variable-3 {
+  color: #fabd2f;
+}
+
+/* Operators: =, +, -, *, etc. */
+.cm-s-obsidian .HyperMD-codeblock .cm-operator {
+  color: #8ec07c;
+}
+
+/* Function definitions / calls */
+.cm-s-obsidian .HyperMD-codeblock .cm-def {
+  color: #fabd2f;
+}
+.cm-s-obsidian .HyperMD-codeblock .cm-callee {
+  color: #fabd2f;
+}
+
+/* Properties */
+.cm-s-obsidian .HyperMD-codeblock .cm-property {
+  color: #83a598;
+}
+
+/* Types */
+.cm-s-obsidian .HyperMD-codeblock .cm-type {
+  color: #fabd2f;
+}
+
+/* Built-in constants: True, False, None, null */
+.cm-s-obsidian .HyperMD-codeblock .cm-atom {
+  color: #d3869b;
+}
+.cm-s-obsidian .HyperMD-codeblock .cm-builtin {
+  color: #fe8019;
+}
+
+/* Punctuation */
+.cm-s-obsidian .HyperMD-codeblock .cm-punctuation {
+  color: #a89984;
+}
+.cm-s-obsidian .HyperMD-codeblock .cm-bracket {
+  color: #a89984;
+}
+
+/* Meta / decorators */
+.cm-s-obsidian .HyperMD-codeblock .cm-meta {
+  color: #fe8019;
+}
+
+/* Tags (HTML/XML) */
+.cm-s-obsidian .HyperMD-codeblock .cm-tag {
+  color: #fb4934;
+}
+.cm-s-obsidian .HyperMD-codeblock .cm-attribute {
+  color: #fabd2f;
+}
+
+/* Qualifier */
+.cm-s-obsidian .HyperMD-codeblock .cm-qualifier {
+  color: #b8bb26;
+}
+
+/* Links */
+.cm-s-obsidian .HyperMD-codeblock .cm-link {
+  color: #83a598;
+}
+
+/* Error */
+.cm-s-obsidian .HyperMD-codeblock .cm-error {
+  color: #fb4934;
+}
+
+/* Default code text color inside code blocks */
+.cm-s-obsidian .HyperMD-codeblock .cm-hmd-codeblock {
+  color: var(--ocode-fg, #ebdbb2);
+}
+
+/* ─── Mobile ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .ocode-wrapper pre.shiki {
+    font-size: 12.5px;
+    padding: 10px 12px;
+  }
+
+  .ocode-line-num {
+    width: 2.5em;
+    margin-right: 10px;
+  }
+
+  .ocode-header {
+    padding: 4px 8px;
+    flex-wrap: wrap;
+  }
+
+  .ocode-pill {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  body.ocode-wide-blocks .ocode-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+
+/* ─── Print ───────────────────────────────────── */
+@media print {
+  .ocode-wrapper {
+    border: 1px solid #cccccc;
+  }
+
+  .ocode-wrapper pre.shiki {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .ocode-btn-group,
+  .ocode-output,
+  .ocode-input-bar {
+    display: none;
+  }
+}
+
+/* ─── Skip-run-all badge (v1.3.0) ────────────── */
+.ocode-skip-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  margin-right: 4px;
+  border-radius: 4px;
+  background: var(--background-modifier-border);
+  color: var(--text-muted);
+  user-select: none;
+}
+
+/* ─── Code file view — full-page block (v1.3.0) ─ */
+
+/* Scrollable outer shell for the file pane */
+.ocode-file-page {
+  padding: 16px 20px;
+  overflow: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Centred file-name title in the file-view header */
+.ocode-file-title {
+  font-weight: 600;
+  font-size: 0.85em;
+  color: var(--text-normal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+/* Make the wrapper fill the available width */
+.ocode-wrapper.ocode-file-full-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* Code area: holds the preview pre.shiki or the editor overlay */
+.ocode-file-code-area { position: relative; }
+
+/* In preview mode: let the pre grow to show all lines without capping */
+.ocode-file-full-page .ocode-file-code-area > pre.shiki {
+  max-height: none;
+  overflow: visible;
+}
+
+/* ─── Editor overlay (edit mode) ──────────────── */
+/*
+ * Both the Shiki background layer and the transparent textarea are
+ * stacked in the same CSS grid cell so they share identical dimensions.
+ * The textarea is on top; its text is transparent so only the Shiki
+ * colours are visible.  The caret remains visible via caret-color.
+ */
+
+/* Pixel metrics shared by bg and textarea — must match pre.shiki exactly */
+:root {
+  --ocode-editor-pad-v: 12px;
+  --ocode-editor-pad-h: 16px;
+  --ocode-editor-font-size: 13.5px;
+  --ocode-editor-line-height: 1.6;
+  --ocode-editor-tab-size: 4;
+}
+
+.ocode-file-editor-wrap {
+  display: grid;       /* stack children in the same cell */
+  position: relative;
+  font-size: var(--ocode-editor-font-size);
+  line-height: var(--ocode-editor-line-height);
+  min-height: 200px;   /* minimum for empty files */
+}
+
+/* Both children occupy grid cell 1/1 (stacked) */
+.ocode-file-editor-bg,
+.ocode-file-editor-ta {
+  grid-area: 1 / 1;
+  font-family: var(--font-monospace);
+  font-size: inherit;
+  line-height: inherit;
+  padding: var(--ocode-editor-pad-v) var(--ocode-editor-pad-h);
+  margin: 0;
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+  tab-size: var(--ocode-editor-tab-size);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Highlight background: rendered Shiki HTML, no pointer events */
+.ocode-file-editor-bg {
+  pointer-events: none;
+  user-select: none;
+  /* No overflow restriction — content height drives the CSS grid row size */
+}
+
+/* The shiki pre inside the bg inherits size from the wrap, no own scroll */
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap .ocode-file-editor-bg pre.shiki {
+  margin: 0;
+  padding: 0;            /* wrap already adds padding */
+  max-height: none;
+  overflow: visible;
+  font-size: inherit;
+  line-height: inherit;
+  background-color: transparent; /* bg comes from ocode-wrapper */
+}
+
+/* Reset the <code> element — Obsidian themes often add padding (e.g.
+   padding: 0.2em 0.4em) which accumulates per line and drifts the cursor.
+   Do NOT set display:block here — the \n text nodes between inline .line
+   spans are preserved by white-space:pre and would render as blank lines. */
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap .ocode-file-editor-bg pre.shiki code {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Keep .line as inline (default for span) — display:block would cause the
+   \n separators between spans to render as extra blank lines in white-space:pre */
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-bg pre.shiki code .line {
+  line-height: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+/* When line numbers are enabled, shift the textarea right to match the gutter */
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap.ocode-file-editor-wrap--lnum .ocode-file-editor-ta {
+  padding-left: calc(var(--ocode-editor-pad-h) + 3em + 16px);
+}
+
+/* Fallback plain pre when Shiki hasn't loaded yet */
+.ocode-file-editor-fallback-pre {
+  margin: 0;
+  padding: 0;
+}
+
+/* Foreground: transparent typing surface exactly on top of the highlight */
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap .ocode-file-editor-ta {
+  /* Disable macOS/system native textarea appearance so it doesn't paint its
+     own background on hover/focus (which would cover the Shiki layer). */
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  background-color: transparent;
+  color: transparent;
+  caret-color: var(--text-normal);
+  resize: none;
+  border: none;
+  outline: none;
+  overflow: hidden;      /* outer ocode-file-page handles scrolling */
+  z-index: 1;
+}
+
+/* Keep all interactive states transparent — prevents theme/OS overrides */
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap .ocode-file-editor-ta:hover,
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap .ocode-file-editor-ta:focus,
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap .ocode-file-editor-ta:focus-visible,
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-wrap .ocode-file-editor-ta:active {
+  background: transparent;
+  background-color: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Selection tint so multi-line selection is visible */
+.ocode-file-editor-ta::selection {
+  background: color-mix(in srgb, var(--interactive-accent) 30%, transparent);
+  color: transparent;
+}
+
+/* Prevent line hover highlight firing on the (pointer-events:none) bg layer */
+.ocode-file-page .ocode-file-full-page .ocode-file-editor-bg .line:hover {
+  background: none;
+}
+
+/* ─── Live Preview block widgets ──────────────── */
+/* In Live Preview the same ocode-wrapper chrome is rendered inside the CM6
+   editor via block-replace widgets. These rules position it within the editor
+   content flow and keep the chrome non-editable while leaving code/output
+   selectable. */
+.cm-content .ocode-wrapper,
+.cm-content .ocode-embed-container {
+  margin: 0.5em 0;
+  /* Header/buttons are UI, not editable text — don't let drags select them. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Code body and output text stay selectable/copyable. */
+.cm-content .ocode-wrapper pre.shiki,
+.cm-content .ocode-wrapper pre.shiki code,
+.cm-content .ocode-wrapper .ocode-output-content,
+.cm-content .ocode-wrapper .ocode-output-content * {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Clicking the code body should feel like entering text to edit. */
+.cm-content .ocode-wrapper pre.shiki {
+  cursor: text;
+}
+
+/* Highlighting failed for this block — hide the empty fallback box. */
+.cm-content .ocode-lp-empty {
+  display: none;
+}
+
