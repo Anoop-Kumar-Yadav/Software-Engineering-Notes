@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "a2d9d4b5f40a4262",
+        "id": "6908896fadd3419e",
         "type": "tabs",
         "children": [
           {
-            "id": "aaf7d2231f9bf910",
+            "id": "888e1a8daf5b4d8b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Prisma/Setup & Installation.md",
+                "file": "System Design/Projects/URL Shortner/100M Users- Hot URL Bottleneck.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Setup & Installation"
+              "title": "100M Users- Hot URL Bottleneck"
             }
           }
         ]
@@ -80,7 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 330.5
+    "width": 451.5
   },
   "right": {
     "id": "7a04276cad90ff31",
@@ -183,15 +183,25 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "document-exporter:Export documents": false,
-      "pdf-plus:PDF++: Toggle auto-copy": false,
-      "pdf-plus:PDF++: Toggle auto-focus": false,
-      "pdf-plus:PDF++: Toggle auto-paste": false
+      "document-exporter:Export documents": false
     }
   },
-  "active": "53078512bac216e2",
+  "active": "888e1a8daf5b4d8b",
   "lastOpenFiles": [
+    "System Design/Projects/URL Shortner/100M Users- Finding the Next Bottleneck.md",
+    "System Design/Projects/URL Shortner/100M Users- Hot URL Bottleneck.md",
+    "System Design/Projects/URL Shortner/10M Users- Analytics Becomes the Next Bottleneck.md",
+    "System Design/Projects/URL Shortner/10M Users- Next Bottleneck.md",
+    "System Design/Projects/URL Shortner/1M Users- First Bottleneck.md",
+    "System Design/Projects/URL Shortner/Phase 7- Scale Tier 2 — 1M Users.md",
     "System Design/Projects/URL Shortner/Untitled.md",
+    "System Design/Projects/URL Shortner/Phase 5 - Deep Dive Entity Relationships.md",
+    "Data Structure and Algortihm/Striverz/Recursion/Problems.md",
+    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Mental Model and Patterns.md",
+    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 7- Divide and Conquer.md",
+    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 8- Recurrence Analysis and Recursion Trees.md",
+    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 9- Master Theorem.md",
+    "Prisma/Setup & Installation.md",
     "html-image (4).png",
     "html-image (3).png",
     "html-image (2).png",
@@ -199,12 +209,10 @@
     "html-image.png",
     "Pasted image 20260814180133.png",
     "Pasted image 20260814174539.png",
-    "System Design/Projects/URL Shortner/Phase 5 - Deep Dive Entity Relationships.md",
     "System Design/Projects/URL Shortner/Phase 4 -- API - Interface Design.md",
     "System Design/Projects/URL Shortner/Phase 3 — Add CPU Estimation.md",
     "System Design/Projects/URL Shortner/Phase 1 — Problem Definition.md",
     "System Design/Projects/URL Shortner/Phase 1- Problem Definition.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Problems.md",
     "System Design/Projects/URL Shortner",
     "Data Structure and Algortihm/Striverz/Recursion/Mastering Subsequences with Recursion.md",
     "GenAI/Practical/Langchain Projects/Phase-1.1.md",
@@ -214,16 +222,6 @@
     "GenAI/Langchain/Module 8 — Memory and Conversation State.md",
     "GenAI/Langchain/Module 7 — Retrieval-Augmented Generation (RAG).md",
     "GenAI/Langchain/Module 6 — Tool Definition and Tool Calling.md",
-    "GenAI/Practical/Langchain Projects/Phase-1.3.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 12- Bottom-Up DP — Tabulation.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 11- Memoized Recursion — Top-Down Dynamic Programming.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 10- Backtracking.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 9- Master Theorem.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 8- Recurrence Analysis and Recursion Trees.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 7- Divide and Conquer.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 6- Backtracking.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 5- Multiple Recursion OR Tree Recursion.md",
-    "Data Structure and Algortihm/Striverz/Recursion/Concept/Recursion Pattern 4- Return-Value Recursion.md",
     "Data Structure and Algortihm/Striverz/Recursion/Concept",
     "Screenshot from 2026-08-12 09-02-05.png",
     "System Design/INterview",
